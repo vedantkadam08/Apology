@@ -2,36 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Babde ❤️</title>
     <style>
+        * { box-sizing: border-box; } /* Prevents layout breaking */
+
         body {
-            margin: 0; padding: 0;
+            margin: 0; padding: 10px;
             display: flex; justify-content: center; align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
             font-family: 'Arial', sans-serif;
-            overflow: hidden; position: relative;
-            perspective: 1000px; /* Needed for 3D effect */
+            overflow-x: hidden; /* Prevent side scroll */
+            position: relative;
+            perspective: 1000px; 
         }
 
         .heart-fall {
             position: absolute; top: -10%;
             font-size: 20px; z-index: 0;
             animation: fall linear forwards;
+            pointer-events: none; /* Hearts won't block clicks */
         }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* 3D Floating Container */
         .container {
             background: rgba(255, 255, 255, 0.95);
-            padding: 30px; border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2), inset 0 0 10px rgba(255,255,255,0.5);
-            text-align: center; max-width: 500px; width: 90%;
+            padding: 20px; border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            text-align: center; 
+            max-width: 500px; width: 100%;
             z-index: 10;
-            overflow: hidden; /* Removes the scroll slider */
             transform-style: preserve-3d;
-            animation: float 4s ease-in-out infinite; /* Floating effect */
+            animation: float 4s ease-in-out infinite;
             border: 1px solid rgba(255,255,255,0.3);
         }
 
@@ -41,25 +44,26 @@
             100% { transform: translateY(0px) rotateX(0deg); }
         }
 
-        h1 { color: #8e44ad; margin: 10px 0; font-size: 24px; }
-        p { font-size: 18px; color: #444; margin-bottom: 30px; line-height: 1.4; }
+        h1 { color: #8e44ad; margin: 10px 0; font-size: 22px; }
+        p { font-size: 16px; color: #444; margin-bottom: 20px; line-height: 1.4; }
 
-        .gif-container { width: 100%; height: 200px; margin-bottom: 20px; display: flex; justify-content: center; }
-        .gif-container img { height: 100%; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .gif-container { width: 100%; height: 180px; margin-bottom: 20px; display: flex; justify-content: center; }
+        .gif-container img { height: 100%; border-radius: 15px; max-width: 100%; object-fit: contain; }
 
-        /* Button Area - Space below text to prevent overlapping */
         .button-space {
-            margin-top: 40px;
-            min-height: 150px; /* Room for Yes to grow */
+            margin-top: 20px;
+            min-height: 100px;
             display: flex; justify-content: center; align-items: center;
             position: relative;
+            gap: 20px;
         }
 
         .btn { 
-            padding: 15px 30px; border: none; border-radius: 50px; 
-            font-size: 1.2rem; font-weight: bold; cursor: pointer; 
+            padding: 12px 25px; border: none; border-radius: 50px; 
+            font-size: 1.1rem; font-weight: bold; cursor: pointer; 
             z-index: 100; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            touch-action: manipulation; /* Improves mobile tap response */
         }
 
         #yesBtn { background-color: #ff4d6d; color: white; position: relative; }
@@ -68,12 +72,12 @@
         .celebration-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;
         }
-        .celebration-grid img { width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .celebration-grid img { width: 100%; border-radius: 12px; }
 
         .massive-yes {
             position: fixed !important; top: 0 !important; left: 0 !important;
             width: 100vw !important; height: 100vh !important;
-            font-size: 3.5rem !important; border-radius: 0 !important;
+            font-size: 2.5rem !important; border-radius: 0 !important;
             display: flex !important; justify-content: center !important; align-items: center !important;
             z-index: 9999 !important; background-color: #ff4d6d !important; color: white !important;
         }
@@ -116,18 +120,22 @@
             noCount++;
 
             if (noCount < 5) {
-                // Better teleport logic (keeps button within view)
-                const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 100) + 50;
-                const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 100) + 50;
+                // Restricted teleport area for mobile screens
+                const padding = 50;
+                const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+                const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+                
+                const x = Math.max(padding, Math.random() * maxX);
+                const y = Math.max(padding, Math.random() * maxY);
+                
+                noBtn.style.position = 'fixed';
                 noBtn.style.left = x + 'px';
                 noBtn.style.top = y + 'px';
 
-                // Yes button grows
-                yesScale += 0.8;
+                yesScale += 0.5; // Slightly smaller growth for mobile
                 yesBtn.style.transform = `scale(${yesScale})`;
 
-                // Update content
-                const current = sequence[noCount];
+                const current = sequence[Math.min(noCount, sequence.length - 1)];
                 mainGif.src = current.gif;
                 subtext.innerText = current.text;
                 heartType = "💔"; 
@@ -139,11 +147,7 @@
         }
 
         function celebrate() {
-            const yesBtn = document.getElementById('yesBtn');
-            if(yesBtn) yesBtn.remove(); 
-
             const container = document.getElementById('mainCard');
-            // Stop floating on final screen for better readability
             container.style.animation = "none";
             container.style.transform = "none";
 
