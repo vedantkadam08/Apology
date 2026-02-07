@@ -48,10 +48,12 @@
             margin-bottom: 15px;
             display: flex;
             justify-content: center;
+            overflow: hidden;
         }
 
         .gif-container img {
             height: 100%;
+            width: auto;
             border-radius: 15px;
         }
 
@@ -82,7 +84,6 @@
             transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Fixed the massive-yes so it doesn't leave a white box */
         .massive-yes {
             position: fixed !important;
             top: 0 !important;
@@ -97,6 +98,7 @@
             z-index: 9999 !important;
             background-color: #ff4d6d !important;
             border: none !important;
+            color: white !important;
         }
     </style>
 </head>
@@ -104,7 +106,7 @@
 
     <div class="container" id="mainCard">
         <div class="gif-container">
-            <img id="mainGif" src="https://media.tenor.com/y_v9ia59O_MAAAAi/bear-begging.gif" alt="sorry">
+            <img id="mainGif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYyNHp6dzJid3BqamZ4eXJ5eXJ5eXJ5eXJ5eXJ5eXJ5eXJ5JnB0PW0mY3Q9cw/MDJ9IbZYvvUq9oV7B3/giphy.gif" alt="sorry">
         </div>
         <h1 id="heading">I'm Sorry Babde!</h1>
         <p id="subtext">Rethink pls... I'm your baby na? I'm your baal na? I'm your husband na? 🥺</p>
@@ -119,11 +121,12 @@
         let noCount = 0;
         let yesScale = 1;
         
+        // These are direct source links that are harder to block
         const gifs = [
-            "https://media.tenor.com/866U63_9_pIAAAAi/sad-cry.gif", 
-            "https://media.tenor.com/07_v_pAi268AAAAi/cry-sad.gif",
-            "https://media.tenor.com/yC08O0Y9B68AAAAi/milk-and-mocha-bear-crying.gif", 
-            "https://media.tenor.com/79S-6vR0f_4AAAAi/begging-crying.gif"
+            "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKFt3Hqg/giphy.gif", 
+            "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/BEob5qwFkSJ7G/giphy.gif",
+            "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/ROF8OQvD69uS5P73Sg/giphy.gif", 
+            "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/Isf93539tC0yE458D0/giphy.gif"
         ];
 
         const texts = [
@@ -159,19 +162,15 @@
         }
 
         function celebrate() {
-            // First, hide the big Yes button so it doesn't block the view
             const yesBtn = document.getElementById('yesBtn');
-            if(yesBtn) {
-                yesBtn.style.display = 'none';
-            }
+            if(yesBtn) yesBtn.style.display = 'none';
 
-            // Then change the content
             const container = document.getElementById('mainCard');
             container.innerHTML = `
                 <h1>Thank you for forgiving me! ❤️</h1>
                 <div class="gif-container" style="height:auto; display:flex; flex-direction:column; gap:10px;">
-                    <img src="https://media.tenor.com/z86Xp8_Lp_IAAAAi/milk-and-mocha-hug.gif">
-                    <img src="https://media.tenor.com/j8n6m56X_9YAAAAi/hug-crying.gif">
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l8ooAYeXK51du/giphy.gif">
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/k9Jw0MW9TV6DbewyxW/giphy.gif">
                 </div>
                 <p>I love you so much Babde! Your husband is happy now! 🤗</p>
             `;
