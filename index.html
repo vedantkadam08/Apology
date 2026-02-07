@@ -6,99 +6,48 @@
     <title>For My Babde ❤️</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
             height: 100vh;
             background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
             font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            position: relative;
+            overflow: hidden; position: relative;
         }
 
         .heart-fall {
-            position: absolute;
-            top: -10%;
+            position: absolute; top: -10%;
             color: rgba(255, 255, 255, 0.7);
-            font-size: 20px;
-            z-index: 0;
+            font-size: 20px; z-index: 0;
             animation: fall linear forwards;
         }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
         .container {
             background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 25px;
+            padding: 30px; border-radius: 25px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            text-align: center;
-            max-width: 450px;
-            width: 85%;
+            text-align: center; max-width: 450px; width: 85%;
             z-index: 10;
         }
 
         h1 { color: #8e44ad; margin: 10px 0; font-size: 24px; }
         p { font-size: 18px; color: #444; margin-bottom: 20px; }
 
-        .gif-container {
-            width: 100%;
-            height: 200px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
-        }
+        .gif-container { width: 100%; height: 200px; margin-bottom: 15px; display: flex; justify-content: center; }
+        .gif-container img { height: 100%; border-radius: 15px; }
 
-        .gif-container img {
-            height: 100%;
-            width: auto;
-            border-radius: 15px;
-        }
+        .buttons { display: flex; justify-content: center; align-items: center; gap: 15px; min-height: 100px; }
+        .btn { padding: 12px 25px; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; z-index: 100; transition: transform 0.2s; }
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            min-height: 100px;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 100;
-        }
-
-        #yesBtn { background-color: #ff4d6d; color: white; transition: 0.3s; }
-        
-        #noBtn { 
-            background-color: #95a5a6; 
-            color: white; 
-            position: absolute; 
-            transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn { background-color: #95a5a6; color: white; position: absolute; }
 
         .massive-yes {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            font-size: 3.5rem !important;
-            border-radius: 0 !important;
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            z-index: 9999 !important;
-            background-color: #ff4d6d !important;
-            border: none !important;
-            color: white !important;
+            position: fixed !important; top: 0 !important; left: 0 !important;
+            width: 100vw !important; height: 100vh !important;
+            font-size: 3rem !important; border-radius: 0 !important;
+            display: flex !important; justify-content: center !important; align-items: center !important;
+            z-index: 9999 !important; background-color: #ff4d6d !important; border: none !important; color: white !important;
         }
     </style>
 </head>
@@ -106,7 +55,7 @@
 
     <div class="container" id="mainCard">
         <div class="gif-container">
-            <img id="mainGif" src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYyNHp6dzJid3BqamZ4eXJ5eXJ5eXJ5eXJ5eXJ5eXJ5eXJ5JnB0PW0mY3Q9cw/MDJ9IbZYvvUq9oV7B3/giphy.gif" alt="sorry">
+            <img id="mainGif" src="gifs/start.gif" alt="sorry">
         </div>
         <h1 id="heading">I'm Sorry Babde!</h1>
         <p id="subtext">Rethink pls... I'm your baby na? I'm your baal na? I'm your husband na? 🥺</p>
@@ -121,14 +70,8 @@
         let noCount = 0;
         let yesScale = 1;
         
-        // These are direct source links that are harder to block
-        const gifs = [
-            "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKFt3Hqg/giphy.gif", 
-            "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/BEob5qwFkSJ7G/giphy.gif",
-            "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/ROF8OQvD69uS5P73Sg/giphy.gif", 
-            "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/Isf93539tC0yE458D0/giphy.gif"
-        ];
-
+        // These point to your local /gifs/ folder
+        const gifs = ["gifs/sad1.gif", "gifs/sad2.gif", "gifs/sad3.gif", "gifs/begging.gif"];
         const texts = [
             "Are you sure?? Pls sorry na Babde...",
             "Don't do this to your husband... 😭",
@@ -148,29 +91,27 @@
                 const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 100) + 50;
                 noBtn.style.left = x + 'px';
                 noBtn.style.top = y + 'px';
-
                 yesScale += 0.5;
                 yesBtn.style.transform = `scale(${yesScale})`;
-
                 mainGif.src = gifs[noCount - 1];
                 subtext.innerText = texts[noCount - 1];
             } else {
                 noBtn.style.display = 'none';
                 yesBtn.classList.add('massive-yes');
-                yesBtn.innerText = "SAY YES! ❤️";
+                yesBtn.innerText = "CLICK YES! ❤️";
             }
         }
 
         function celebrate() {
             const yesBtn = document.getElementById('yesBtn');
-            if(yesBtn) yesBtn.style.display = 'none';
+            if(yesBtn) yesBtn.remove(); // Removes the full screen button entirely
 
             const container = document.getElementById('mainCard');
             container.innerHTML = `
                 <h1>Thank you for forgiving me! ❤️</h1>
                 <div class="gif-container" style="height:auto; display:flex; flex-direction:column; gap:10px;">
-                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l8ooAYeXK51du/giphy.gif">
-                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/k9Jw0MW9TV6DbewyxW/giphy.gif">
+                    <img src="gifs/hug1.gif" style="width:100%">
+                    <img src="gifs/hug2.gif" style="width:100%">
                 </div>
                 <p>I love you so much Babde! Your husband is happy now! 🤗</p>
             `;
