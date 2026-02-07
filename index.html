@@ -46,6 +46,8 @@
             width: 100%;
             height: 200px;
             margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
         }
 
         .gif-container img {
@@ -77,7 +79,7 @@
             background-color: #95a5a6; 
             color: white; 
             position: absolute; 
-            transition: 0.1s ease;
+            transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .massive-yes {
@@ -86,7 +88,7 @@
             left: 0 !important;
             width: 100vw !important;
             height: 100vh !important;
-            font-size: 4rem !important;
+            font-size: 3.5rem !important;
             border-radius: 0 !important;
             display: flex !important;
             justify-content: center !important;
@@ -107,7 +109,7 @@
         
         <div class="buttons">
             <button id="yesBtn" class="btn" onclick="celebrate()">Yes</button>
-            <button id="noBtn" class="btn" onmouseover="handleNo()">No</button>
+            <button id="noBtn" class="btn" onclick="handleNo()">No</button>
         </div>
     </div>
 
@@ -137,24 +139,24 @@
             const subtext = document.getElementById('subtext');
 
             if (noCount < 5) {
-                // Move No button
+                // Teleport the No button on click
                 const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 100) + 50;
                 const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 100) + 50;
                 noBtn.style.left = x + 'px';
                 noBtn.style.top = y + 'px';
 
-                // Grow Yes button
-                yesScale += 0.4;
+                // Make Yes button grow
+                yesScale += 0.5;
                 yesBtn.style.transform = `scale(${yesScale})`;
 
-                // Update content
+                // Change text and gif
                 mainGif.src = gifs[noCount - 1];
                 subtext.innerText = texts[noCount - 1];
             } else {
-                // 5th time: GONE.
+                // 5th click: No button disappears, Yes button goes full screen
                 noBtn.style.display = 'none';
                 yesBtn.classList.add('massive-yes');
-                yesBtn.innerText = "CLICK YES! ❤️";
+                yesBtn.innerText = "SAY YES! ❤️";
             }
         }
 
@@ -168,6 +170,7 @@
                 </div>
                 <p>I love you so much Babde! Your husband is happy now! 🤗</p>
             `;
+            // Remove full screen button if it exists
             const yesBtn = document.getElementById('yesBtn');
             if(yesBtn) yesBtn.remove();
         }
