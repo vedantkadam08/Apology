@@ -16,7 +16,6 @@
 
         .heart-fall {
             position: absolute; top: -10%;
-            color: rgba(255, 255, 255, 0.7);
             font-size: 20px; z-index: 0;
             animation: fall linear forwards;
         }
@@ -24,19 +23,24 @@
 
         .container {
             background: rgba(255, 255, 255, 0.95);
-            padding: 30px; border-radius: 25px;
+            padding: 20px; border-radius: 25px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            text-align: center; max-width: 450px; width: 85%;
-            z-index: 10;
+            text-align: center; max-width: 500px; width: 90%;
+            z-index: 10; max-height: 90vh; overflow-y: auto;
         }
 
-        h1 { color: #8e44ad; margin: 10px 0; font-size: 24px; }
-        p { font-size: 18px; color: #444; margin-bottom: 20px; }
+        h1 { color: #8e44ad; margin: 10px 0; font-size: 22px; }
+        p { font-size: 16px; color: #444; margin-bottom: 15px; }
 
-        .gif-container { width: 100%; height: 200px; margin-bottom: 15px; display: flex; justify-content: center; }
-        .gif-container img { height: 100%; border-radius: 15px; }
+        .gif-container { width: 100%; height: 180px; margin-bottom: 10px; display: flex; justify-content: center; }
+        .gif-container img { height: 100%; border-radius: 12px; }
 
-        .buttons { display: flex; justify-content: center; align-items: center; gap: 15px; min-height: 100px; }
+        .celebration-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;
+        }
+        .celebration-grid img { width: 100%; border-radius: 10px; }
+
+        .buttons { display: flex; justify-content: center; align-items: center; gap: 15px; min-height: 80px; }
         .btn { padding: 12px 25px; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; z-index: 100; transition: transform 0.2s; }
 
         #yesBtn { background-color: #ff4d6d; color: white; }
@@ -54,13 +58,13 @@
 <body>
 
     <div class="container" id="mainCard">
-        <div class="gif-container">
-            <img id="mainGif" src="gifs/start.gif" alt="sorry">
+        <div class="gif-container" id="gifWrapper">
+            <img id="mainGif" src="gifs/i-am-sorry.gif" alt="sorry">
         </div>
         <h1 id="heading">I'm Sorry Babde!</h1>
         <p id="subtext">Rethink pls... I'm your baby na? I'm your baal na? I'm your husband na? 🥺</p>
         
-        <div class="buttons">
+        <div class="buttons" id="btnWrapper">
             <button id="yesBtn" class="btn" onclick="celebrate()">Yes</button>
             <button id="noBtn" class="btn" onclick="handleNo()">No</button>
         </div>
@@ -69,14 +73,14 @@
     <script>
         let noCount = 0;
         let yesScale = 1;
+        let heartType = "❤️";
         
-        // These point to your local /gifs/ folder
-        const gifs = ["gifs/sad1.gif", "gifs/sad2.gif", "gifs/sad3.gif", "gifs/begging.gif"];
-        const texts = [
-            "Are you sure?? Pls sorry na Babde...",
-            "Don't do this to your husband... 😭",
-            "I'll be the best baby ever, I promise!",
-            "Last chance to say Yes! 🥺"
+        const sequence = [
+            { gif: "gifs/i-am-sorry.gif", text: "Pls rethink na Babde... 🥺" },
+            { gif: "gifs/tonton-tontonfriends.gif", text: "You broke my heart... 💔" },
+            { gif: "gifs/Milk And Mocha Bear Sorry Na GIF - Milk And Mocha Bear Sorry Na Crying - Discover & Share GIFs.gif", text: "Look how much I'm crying for you! 😭" },
+            { gif: "broken_heart", text: "My heart is in pieces now... 🩹💔" },
+            { gif: "gifs/madebychie-mocha-and-milk.gif", text: "Last chance... I'm your husband na? Pls say Yes! 🥺" }
         ];
 
         function handleNo() {
@@ -91,10 +95,22 @@
                 const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 100) + 50;
                 noBtn.style.left = x + 'px';
                 noBtn.style.top = y + 'px';
-                yesScale += 0.5;
+
+                yesScale += 0.7;
                 yesBtn.style.transform = `scale(${yesScale})`;
-                mainGif.src = gifs[noCount - 1];
-                subtext.innerText = texts[noCount - 1];
+
+                const current = sequence[noCount];
+                if (current.gif === "broken_heart") {
+                    mainGif.style.display = "none";
+                    subtext.style.fontSize = "24px";
+                    heartType = "💔";
+                } else {
+                    mainGif.style.display = "block";
+                    mainGif.src = current.gif;
+                    subtext.style.fontSize = "16px";
+                    heartType = "❤️";
+                }
+                subtext.innerText = current.text;
             } else {
                 noBtn.style.display = 'none';
                 yesBtn.classList.add('massive-yes');
@@ -104,23 +120,26 @@
 
         function celebrate() {
             const yesBtn = document.getElementById('yesBtn');
-            if(yesBtn) yesBtn.remove(); // Removes the full screen button entirely
+            if(yesBtn) yesBtn.remove(); 
 
             const container = document.getElementById('mainCard');
             container.innerHTML = `
                 <h1>Thank you for forgiving me! ❤️</h1>
-                <div class="gif-container" style="height:auto; display:flex; flex-direction:column; gap:10px;">
-                    <img src="gifs/hug1.gif" style="width:100%">
-                    <img src="gifs/hug2.gif" style="width:100%">
+                <p>I love you so much Babde! Your husband is the happiest! 🤗✨</p>
+                <div class="celebration-grid">
+                    <img src="gifs/peach-goma-peach-and-goma.gif">
+                    <img src="gifs/peach-goma-goma-peach.gif">
+                    <img src="gifs/love-you-hug.gif">
+                    <img src="gifs/cute-animated-hug-from-the-back-xr98o0dt96msgfeh.gif">
                 </div>
-                <p>I love you so much Babde! Your husband is happy now! 🤗</p>
             `;
+            heartType = "💖"; 
         }
 
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart-fall');
-            heart.innerHTML = '❤️';
+            heart.innerHTML = heartType;
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = Math.random() * 3 + 2 + 's';
             document.body.appendChild(heart);
