@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Babde ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Falling Hearts Animation */
+        .heart-fall {
+            position: absolute;
+            top: -10%;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+            user-select: none;
+            z-index: 0;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 { color: #8e44ad; font-size: 2.2rem; margin: 10px 0; }
+        p { font-size: 1.1rem; color: #444; line-height: 1.4; }
+
+        .gif-container img {
+            width: 180px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            min-height: 50px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #yesBtn:hover { transform: scale(1.1); background-color: #ff3355; }
+
+        #noBtn {
+            background-color: #95a5a6;
+            color: white;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp6NjZpZ296cHZ6eHpsbmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4JmVwPXYxX3N0aWNrZXJzX3NlYXJjaCZjdD1z/Isf93539tC0yE458D0/giphy.gif" alt="begging gif">
+        </div>
+        <h1>I'm Sorry Babde!</h1>
+        <p>Rethink pls... I'm your baby na? I'm your baal na? I'm your hasbend na? 🥺</p>
+        
+        <div class="buttons">
+            <button id="yesBtn" class="btn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" class="btn" onmouseover="moveButton()">No</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to move the "No" button
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        // Function for when she says Yes
+        function celebrate() {
+            const container = document.getElementById('mainCard');
+            container.innerHTML = `
+                <h1>YAY! I love you! ❤️</h1>
+                <div class="gif-container">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ0eXJ5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l8ooAYeXK51du/giphy.gif" alt="hug gif" style="width: 100%;">
+                </div>
+                <p>Thank you for forgiving your baby! Best hug coming your way! 🤗✨</p>
+            `;
+            // Stop the No button from floating around if it was stuck
+            document.getElementById('noBtn').style.display = 'none';
+        }
+
+        // Background Hearts Creator
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-fall');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
